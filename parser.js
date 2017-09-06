@@ -10,3 +10,10 @@ var openCurReg = /^(\{)((.|\n)*)$/
 var commaReg = /^(,)((.|\n)*)$/
 var stringReg = /^("(\"|[^"])*")((.|\n)*)$/
 
+// this takes regex and input and gives matched value and rest of string
+function getMatchAndRest (regex, input) {
+  var tempMatch = regex.exec(input)
+  var match = tempMatch[1]
+  var rest = tempMatch[2]
+  return [match, rest]
+}
