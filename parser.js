@@ -17,3 +17,7 @@ function getMatchAndRest (regex, input) {
   var rest = tempMatch[2]
   return [match, rest]
 }
+
+function stringParser (input) {
+  var matchArr = inputMatcher(stringReg, input)
+}
