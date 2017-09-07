@@ -30,3 +30,12 @@ function getMatchAndRest (regex, input) {
 function stringParser (input) {
   var matchArr = inputMatcher(stringReg, input)
 }
+function numberParser(input) {
+  var matchArr = getMatchAndRest(numberReg, input)
+  if(matchArr === null) {
+    return null
+  }
+  else {
+    return [Number(matchArr[0]), matchArr[1]]
+  }
+}
