@@ -104,29 +104,6 @@ function valueParser(input) {
   return numberParser(input) || boolParser(input) || stringParser(input) || arrayParser(input)
 }
 
-/*  
-function arrayParser (input, accum) {
-  console.log(input, accum)
-  if (accum === undefined) accum = []
-  var matchArr = openSqrParser(input)
-  if (matchArr) return arrayParser(arrayParser(matchArr[1]), accum)
-   matchArr = closeSqrParser(input)
-  if (matchArr) return (matchArr[1], accum)
-   matchArr = commaParser(input)
-  if (matchArr) return arrayParser(matchArr[1], accum)
-   matchArr = spaceParser(input)
-  if (matchArr) return arrayParser(matchArr[1], accum)
-   matchArr = valueParser(input)
-  if (matchArr) {
-    accum.push([matchArr[0]])
-    return arrayParser(matchArr[1], accum)
-  }
-}
-
-
-
-
-*/
 
 function arrayParser (input) {
   var mayBeSqrBkt = openSqrParser(input)
