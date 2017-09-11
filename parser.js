@@ -23,15 +23,151 @@ function getMatchAndRest (regex, input) {
   }
 }  
 
+//takes input and returns consumed string ans rest or null
 function stringParser (input) {
-  var matchArr = inputMatcher(stringReg, input)
+  var matchArr = stringReg.exec(input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return [matchArr[1], matchArr[3]]
+  }
 }
+
+function nullParser(input) {
+  var matchArr = getMatchAndRest(nullReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return [null, matchArr[1]]
+  }
+}
+
 function numberParser(input) {
-  var matchArr = getMatchAndRest(numberReg, input)
-  if(matchArr === null) {
+ var matchArr = getMatchAndRest(numberReg, input)
+  if (matchArr === null) {
     return null
   }
   else {
     return [Number(matchArr[0]), matchArr[1]]
   }
 }
+
+function openSqrParser(input) {
+  var matchArr = getMatchAndRest(openSqrReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return ['[', matchArr[1]]
+  }
+}
+
+function closeSqrParser(input) {
+  var matchArr = getMatchAndRest(closeSqrReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return [']', matchArr[1]]
+  }
+}
+
+function commaParser(input) {
+  var matchArr = getMatchAndRest(commaReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return [',', matchArr[1]]
+  }
+}
+function spaceParser(input) {
+  var matchArr = getMatchAndRest(spaceReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return [' ', matchArr[1]]
+  }
+}
+
+function boolParser(input) {
+  var matchArr = getMatchAndRest(boolReg, input)
+  if (matchArr === null) return null
+  return [(matchArr[0] === "true") , matchArr[1]]
+}
+
+function valueParser(input) {
+  return numberParser(input) || boolParser(input) || stringParser(input) || arrayParser(input)
+}
+
+/*  
+function arrayParser (input, accum) {
+  console.log(input, accum)
+  if (accum === undefined) accum = []
+  var matchArr = openSqrParser(input)
+  if (matchArr) return arrayParser(arrayParser(matchArr[1]), accum)
+   matchArr = closeSqrParser(input)
+  if (matchArr) return (matchArr[1], accum)
+   matchArr = commaParser(input)
+  if (matchArr) return arrayParser(matchArr[1], accum)
+   matchArr = spaceParser(input)
+  if (matchArr) return arrayParser(matchArr[1], accum)
+   matchArr = valueParser(input)
+  if (matchArr) {
+    accum.push([matchArr[0]])
+    return arrayParser(matchArr[1], accum)
+  }
+}
+
+
+
+
+*/
+
+function arrayParser (input) {
+  var mayBeSqrBkt = openSqrParser(input)
+  return getArrayValues(mayBeSqrBkt[1])
+}
+
+function getArrayValues(input, accum, previousInputWasComma) {
+  if (accum === undefined) {
+    accum = []}
+  if (previousInputWasComma === undefined) {
+    previousInputWasComma = false}
+  if ((closeSqrParser(input)  !== null) && previousInputWasComma === false)
+   { var rest = closeSqrParser(input)[1]
+    return [accum, rest]
+   }
+  if ((closeSqrParser(input)  !== null) && previousInputWasComma)
+  { return null
+  }
+  
+  if (spaceParser(input)  !== null) 
+  { var rest = spaceParser(input)[1]
+    return getArrayValues(rest, accum, previousInputWasComma)
+  }
+  if (commaParser(input) !== null && previousInputWasComma === false)
+  {var rest = commaParser(input)[1]
+   return getArrayValues(rest, accum, true)
+  }
+  if (commaParser(input) !== null && previousInputWasComma)
+  {return null
+  }
+
+  if (valueParser(input) !== null && (previousInputWasComma || accum.length === 0))
+     { var rest = valueParser(input)[1]
+       var value = [valueParser(input)[0]]
+       return getArrayValues(rest, accum.concat(value), false)
+      }
+    return null
+    
+}
+
+    
+
+
+var test = "[[] , [1]]"
+console.log(arrayParser(test))
