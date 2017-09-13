@@ -8,6 +8,7 @@ var openSqrReg = /^(\[)((.|\n)*)$/
 var closeSqrReg = /^(\])((.|\n)*)$/
 var closeCurReg = /^(\})((.|\n)*)$/
 var openCurReg = /^(\{)((.|\n)*)$/
+var closeCurlyReg = /^(\})((.|\n)*)$/
 var commaReg = /^(,)((.|\n)*)$/
 var stringReg = /^("(\"|[^"])*")((.|\n)*)$/
 var stringReg = /^\"([^\"]*)\"((.|\n)*)/
