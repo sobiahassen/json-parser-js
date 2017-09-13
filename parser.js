@@ -68,6 +68,16 @@ function openSqrParser(input) {
   }
 }
 
+function openCurlyParser(input) {
+  var matchArr = getMatchAndRest(openCurlyReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return ['{', matchArr[1]]
+  }
+}
+
 function closeSqrParser(input) {
   var matchArr = getMatchAndRest(closeSqrReg, input)
   if (matchArr === null) {
