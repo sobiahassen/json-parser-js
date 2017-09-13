@@ -180,6 +180,14 @@ function getArrayValues(input, accum, previousInputWasComma) {
     
 }
 
+function objectParser(input) {
+  var mayBeOpenCurly = openCurlyParser(input)
+  if (mayBeOpenCurly) {
+   return  getObjValuesandRest(mayBeOpenCurly[1])
+  }
+  //console.log('res---->', res)
+  return null
+}
     
 
 
