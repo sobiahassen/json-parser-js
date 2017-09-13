@@ -88,6 +88,16 @@ function closeSqrParser(input) {
   }
 }
 
+function closeCurlyParser(input) {
+  var matchArr = getMatchAndRest(closeCurlyReg, input)
+  if (matchArr === null) {
+    return null
+  }
+  else {
+    return ['}', matchArr[1]]
+  }
+}
+
 function commaParser(input) {
   var matchArr = getMatchAndRest(commaReg, input)
   if (matchArr === null) {
