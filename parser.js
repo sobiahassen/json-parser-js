@@ -112,6 +112,11 @@ function colonParser(input) {
   if (matchArr === null) {
     return null
   }
+  else {
+    return [':', matchArr[1]]
+  }
+}
+
 function spaceParser(input) {
   var matchArr = getMatchAndRest(spaceReg, input)
   if (matchArr === null) {
