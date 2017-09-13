@@ -219,8 +219,32 @@ function getObjValuesandRest (input, accum, previousInputWasComma){
   return null
 }
 
+function keyColonValueParser (input) {
+ // console.log("in key colon value parser , input = ", input)
+  input = input.trim()
+  var mayBeString = stringParser(input)
+//  console.log(mayBeString)
+  if (mayBeString !== null) {
+    var key = mayBeString[0]
+    var rest =  mayBeString[1].trim()
+//    console.log(key, rest)
+    var mayBeColon = colonParser(rest)
+    if (mayBeColon !== null) {
+      var mayBeValue = valueParser(mayBeColon[1].trim())
+//      console.log(mayBeValue)
+      if (mayBeValue) {
+       // console.log([key, mayBeValue[0], mayBeValue[1]] + "return value of keyColon")
+        return [key, mayBeValue[0], mayBeValue[1]]
+      }
+    }
+  }
+  return null
+}
     
 
 
 var test = "[[] , [1]]"
 console.log(arrayParser(test))
+
+
+//objectParser("{\"hello\" : \"val\"}")
