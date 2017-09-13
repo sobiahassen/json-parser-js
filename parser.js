@@ -85,6 +85,11 @@ function commaParser(input) {
     return [',', matchArr[1]]
   }
 }
+function colonParser(input) {
+  var matchArr = getMatchAndRest(colonReg, input)
+  if (matchArr === null) {
+    return null
+  }
 function spaceParser(input) {
   var matchArr = getMatchAndRest(spaceReg, input)
   if (matchArr === null) {
