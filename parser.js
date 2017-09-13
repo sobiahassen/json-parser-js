@@ -140,7 +140,10 @@ function valueParser(input) {
 
 function arrayParser (input) {
   var mayBeSqrBkt = openSqrParser(input)
-  return getArrayValues(mayBeSqrBkt[1])
+  if(mayBeSqrBkt){
+    return getArrayValues(mayBeSqrBkt[1])
+  }
+  return null
 }
 
 function getArrayValues(input, accum, previousInputWasComma) {
