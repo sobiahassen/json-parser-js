@@ -188,6 +188,37 @@ function objectParser(input) {
   //console.log('res---->', res)
   return null
 }
+function getObjValuesandRest (input, accum, previousInputWasComma){
+ // console.log(input, accum, previousInputWasComma)
+  if(accum === undefined) {
+    accum = {} }
+  if(previousInputWasComma === undefined) {
+    previousInputWasComma = false }
+  if((closeCurlyParser(input) !== null ) && previousInputWasComma === false) {
+    var rest = closeCurlyParser(input)[1]
+    console.log('accum = ', accum, ' rest = ', rest)
+    return [accum, rest] }
+  if((closeCurlyParser(input) !== null ) && previousInputWasComma === true) {
+    return null }
+  if (spaceParser(input)  !== null) 
+  { var rest = spaceParser(input)[1]
+    return getObjValuesandRest(rest, accum, previousInputWasComma)
+  }
+  if (commaParser(input) !== null && previousInputWasComma)
+  {return null
+  }
+ // console.log(Object.keys(accum).length)
+  if (keyColonValueParser(input) !== null && (previousInputWasComma || Object.keys(accum).length === 0))
+  { var keyColonValueParserResult = keyColonValueParser(input)
+    var key = keyColonValueParserResult[0]
+    var value = keyColonValueParserResult[1]
+    var rest = keyColonValueParserResult[2]
+    return  getObjValuesandRest(rest, ({[key]: value}), false)
+    // 
+  }
+  return null
+}
+
     
 
 
