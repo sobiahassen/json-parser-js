@@ -207,13 +207,18 @@ function getObjValuesandRest (input, accum, previousInputWasComma){
   if (commaParser(input) !== null && previousInputWasComma)
   {return null
   }
+  if (commaParser(input) !== null && previousInputWasComma === false)
+  {var rest = commaParser(input)[1]
+   return getObjValuesandRest(rest, accum, true)
+  }
  // console.log(Object.keys(accum).length)
   if (keyColonValueParser(input) !== null && (previousInputWasComma || Object.keys(accum).length === 0))
   { var keyColonValueParserResult = keyColonValueParser(input)
     var key = keyColonValueParserResult[0]
     var value = keyColonValueParserResult[1]
     var rest = keyColonValueParserResult[2]
-    return  getObjValuesandRest(rest, ({[key]: value}), false)
+    accum[key] = value
+    return  getObjValuesandRest(rest, accum, false)
     // 
   }
   return null
@@ -245,6 +250,8 @@ function keyColonValueParser (input) {
 
 var test = "[[] , [1]]"
 console.log(arrayParser(test))
+var test = "{\"hello\": \"123\", \"hallo\":324}"
+console.log(objectParser(test))
 
 
 //objectParser("{\"hello\" : \"val\"}")
