@@ -135,7 +135,7 @@ function boolParser(input) {
 }
 
 function valueParser(input) {
-  return numberParser(input) || boolParser(input) || stringParser(input) || arrayParser(input)
+  return numberParser(input) || boolParser(input) || stringParser(input) || arrayParser(input) || objectParser(input)
 }
 
 
