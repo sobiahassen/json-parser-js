@@ -27,8 +27,10 @@ function getMatchAndRest (regex, input) {
 }  
 
 //takes input and returns consumed string ans rest or null
+//takes input and returns consumed string and rest or null
+//needs changes "
 function stringParser (input) {
-  var matchArr = stringReg.exec(input)
+  var matchArr = getMatchAndRest(stringReg, input)
   if (matchArr === null) {
     return null
   }
