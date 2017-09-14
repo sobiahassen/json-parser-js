@@ -6,12 +6,11 @@ var spaceReg = /^([  \t]+)((.|\n)*)$/
 var numberReg =  /^((?:\d+(?:\.\d*)?|\.\d+)(?:[e][+-]?\d+)?)((.|\n)*)$/
 var openSqrReg = /^(\[)((.|\n)*)$/
 var closeSqrReg = /^(\])((.|\n)*)$/
-var closeCurReg = /^(\})((.|\n)*)$/
-var openCurReg = /^(\{)((.|\n)*)$/
 var closeCurlyReg = /^(\})((.|\n)*)$/
 var openCurlyReg = /^(\{)((.|\n)*)$/
 var commaReg = /^(,)((.|\n)*)$/
-var stringReg = /^("(\"|[^"])*")((.|\n)*)$/
+var colonReg = /^(\:)((.|\n)*)$/
+// stringReg changed now working fine
 var stringReg = /^\"([^\"]*)\"((.|\n)*)/
 
 // this takes regex and input and gives matched value and rest of string
